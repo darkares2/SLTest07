@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Vejrudsigten.Services
 {
-    public class WeatherService
+    public class WeatherService : IWeatherService
     {
         public async Task<WeatherInfo> GetTodaysWeather(string key, string location)
         {

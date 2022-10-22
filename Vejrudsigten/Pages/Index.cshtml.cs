@@ -14,11 +14,13 @@ namespace Vejrudsigten.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IConfiguration _configuration;
+        private readonly WeatherForecast _weatherForecast;
 
         public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _weatherForecast = new WeatherForecast();
         }
 
         public async Task OnGetAsync()
@@ -30,11 +32,9 @@ namespace Vejrudsigten.Pages
                 ViewData.Add("Vejrudsigten", "Hov! Du har glemt at angive nøglen i appsettings.local.json. Gå tilbage til opgavebeskrivelsen og se hvordan");
             } else
             {
-                ViewData.Add("Vejrudsigten", await WeatherForecast.GetForecastAsync(key));
+                ViewData.Add("WeatherTitle", await _weatherForecast.GetForecastTitleAsync(key));
+                ViewData.Add("Vejrudsigten", await _weatherForecast.GetForecastAsync(key));
             }
-
-            
-
         }
     }
 }
